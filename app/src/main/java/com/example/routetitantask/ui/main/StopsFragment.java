@@ -45,7 +45,6 @@ public class StopsFragment extends Fragment implements ItemClickListener {
         OrdersAdapter orderAdapter = new OrdersAdapter();
         orderAdapter.setItemClickListener(this);
         mStopsFragmentBinding.stopsRecyclerView.setAdapter(orderAdapter);
-        orderAddressViewModel.deleteAll();
         orderAddressViewModel.getAllOrders().observe(getViewLifecycleOwner(), new Observer<List<OrderAddress>>() {
             @Override
             public void onChanged(List<OrderAddress> orderAddresses) {
