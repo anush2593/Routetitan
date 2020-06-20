@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -13,6 +14,7 @@
         <variable
             name="orderPosition"
             type="Integer" />
+
         <variable
             name="itemClickListener"
             type="com.example.routetitantask.ui.main.ItemClickListener" />
@@ -34,27 +36,27 @@
             android:id="@+id/main_constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:onClick="@{()-> itemClickListener.openExpandable(orderAddress, orderPosition)}"
+            android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/circle"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 tools:ignore="MissingConstraints">
 
                 <TextView
                     android:id="@+id/number_circle"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@drawable/number_circle"
                     android:gravity="center"
                     android:text="@{String.valueOf(orderPosition+1)}"
-                    android:visibility="@{orderAddress.isFinished? View.GONE : View.VISIBLE}"
                     android:textAlignment="center"
                     android:textSize="25sp"
+                    android:visibility="@{orderAddress.isFinished? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -62,8 +64,8 @@
 
                 <TextView
                     android:id="@+id/finish_circle_view"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@drawable/finish_circle"
                     android:gravity="center"
                     android:textAlignment="center"
@@ -82,7 +84,7 @@
                 android:layout_marginLeft="15dp"
                 android:text="@{orderAddress.orderNumber}"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@id/circle"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="11111111" />
@@ -94,7 +96,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@{orderAddress.orderMainAddress}"
                 android:textColor="@color/colorHintGrey"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="@id/order_number"
                 app:layout_constraintTop_toBottomOf="@id/order_number"
                 tools:text="Weisltpleubn 15" />
@@ -107,7 +109,7 @@
                 android:layout_marginBottom="20dp"
                 android:text="@{orderAddress.orderSecondaryAddress}"
                 android:textColor="@color/colorHintGrey"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/order_address_main"
                 app:layout_constraintTop_toBottomOf="@id/order_address_main"
@@ -129,9 +131,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="@{orderAddress.orderDeliveryTimeRange}"
+                android:text="@{orderAddress.orderDeliveryTime}"
                 android:textColor="@color/colorHintGrey"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/order_address_secondary"
                 tools:text="08:00-09:00" />
@@ -143,9 +145,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:visibility="@{orderAddress.isExpanded? View.VISIBLE : View.GONE}"
             android:paddingEnd="15dp"
             android:paddingRight="15dp"
+            android:visibility="@{orderAddress.isExpanded? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toBottomOf="@id/main_constraint_layout">
 
             <View
@@ -165,13 +167,13 @@
                 android:drawablePadding="5dp"
                 android:drawableTint="@color/blue"
                 android:gravity="center_horizontal"
+                android:onClick="@{()->itemClickListener.setOrderFinished(orderAddress, orderPosition)}"
                 android:text="@string/finish"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/blue"
-                app:layout_constraintTop_toTopOf="@id/navigate"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:onClick="@{()->itemClickListener.setOrderFinished(orderAddress, orderPosition)}"
+                app:layout_constraintTop_toTopOf="@id/navigate"
                 tools:ignore="MissingConstraints" />
 
             <TextView
@@ -185,9 +187,9 @@
                 android:drawablePadding="5dp"
                 android:drawableTint="@color/blue"
                 android:gravity="center_horizontal"
+                android:onClick="@{()->itemClickListener.chooseMapAndNavigateToTheAddress(orderAddress)}"
                 android:text="@string/navigate"
                 android:textAlignment="center"
-                android:onClick="@{()->itemClickListener.chooseMapAndNavigateToTheAddress(orderAddress)}"
                 android:textAllCaps="true"
                 android:textColor="@color/blue"
                 app:layout_constraintEnd_toStartOf="@id/finish"

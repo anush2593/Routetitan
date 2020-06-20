@@ -21,9 +21,6 @@ import com.example.routetitantask.room.OrderAddressViewModel;
 import java.util.List;
 import java.util.Objects;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 
 public class StopsFragment extends Fragment implements ItemClickListener {
 
@@ -52,11 +49,9 @@ public class StopsFragment extends Fragment implements ItemClickListener {
         orderAddressViewModel.getAllOrders().observe(getViewLifecycleOwner(), new Observer<List<OrderAddress>>() {
             @Override
             public void onChanged(List<OrderAddress> orderAddresses) {
-                orderAdapter.removeAll();
                 orderAdapter.setOrderList(orderAddresses);
             }
         });
-
         return mStopsFragmentBinding.getRoot();
     }
 
@@ -83,10 +78,9 @@ public class StopsFragment extends Fragment implements ItemClickListener {
     @Override
     public void openExpandable(OrderAddress orderAddress, int position) {
         if (orderAddress.isIsExpanded()) {
-            orderAddress.setIsExpanded(false);
+            orderAddressViewModel.expandView(orderAddress.getId(), false);
         } else {
-            orderAddress.setIsExpanded(true);
-            orderAddressViewModel.expandView(orderAddress.getId());
+            orderAddressViewModel.expandView(orderAddress.getId(), true);
         }
     }
 }

@@ -32,10 +32,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderInfoV
         notifyDataSetChanged();
     }
 
-    public void removeAll() {
-        if (orderList != null) orderList.clear();
-        notifyDataSetChanged();
-    }
 
     @NonNull
     @Override

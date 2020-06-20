@@ -27,8 +27,8 @@ public class OrderAddressViewModel extends AndroidViewModel {
     }
 
 
-    public void expandView(String orderId) {
-        mRepository.expandView(orderId);
+    public void expandView(String orderId, boolean isExpanded) {
+        mRepository.expandView(orderId, isExpanded);
     }
 
 }

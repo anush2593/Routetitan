@@ -21,25 +21,27 @@ public class AddressesRepository {
         return mAllOrderAddresses;
     }
 
-    public void update(String orderId)  {
+    public void update(String orderId) {
         new updateOrderStatusInfoAsyncTask(mAddressDao).execute(orderId);
     }
 
-    public void expandView(String orderId){
-        new updateOrderViewAsyncTask(mAddressDao).execute(orderId);
+    public void expandView(String orderId, boolean isExpanded) {
+        new updateOrderViewAsyncTask(mAddressDao, isExpanded).execute(orderId);
 
     }
 
     private static class updateOrderViewAsyncTask extends AsyncTask<String, Void, Void> {
         private AddressDao mAsyncTaskDao;
+        private boolean mIsExpanded;
 
-        updateOrderViewAsyncTask(AddressDao dao) {
+        updateOrderViewAsyncTask(AddressDao dao, boolean isExpanded) {
             mAsyncTaskDao = dao;
+            mIsExpanded = isExpanded;
         }
 
         @Override
         protected Void doInBackground(final String... orderId) {
-            mAsyncTaskDao.updateOrderView(orderId[0], true);
+            mAsyncTaskDao.updateOrderView(orderId[0], mIsExpanded);
             return null;
         }
     }
