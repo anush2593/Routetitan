@@ -61,22 +61,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         List<Marker> markers = new ArrayList<>();
         IconGenerator iconGenerator = new IconGenerator(getActivity());
 
-        orderAddressViewModel.getAllOrders().observe(getActivity(), new Observer<List<OrderAddress>>() {
+        orderAddressViewModel.getAllOrders().observe(Objects.requireNonNull(getActivity()), new Observer<List<OrderAddress>>() {
             @Override
             public void onChanged(List<OrderAddress> orderAddresses) {
-                Log.d("MAP", orderAddresses.size()+"");
                 for (int i = 0; i < orderAddresses.size(); i++) {
-                     iconGenerator.setStyle(IconGenerator.STYLE_BLUE);
-                     if(orderAddresses.get(i).isIsFinished()) iconGenerator.setStyle(IconGenerator.STYLE_GREEN);
+                    iconGenerator.setStyle(IconGenerator.STYLE_BLUE);
+                    if (orderAddresses.get(i).isIsFinished())
+                        iconGenerator.setStyle(IconGenerator.STYLE_GREEN);
+                    else if (orderAddresses.get(i).isExpanded())
+                        iconGenerator.setStyle(IconGenerator.STYLE_RED);
                     Bitmap bmp = iconGenerator.makeIcon((i + 1) + "");
                     Marker m = googleMap.addMarker(
                             new MarkerOptions().position(new LatLng(Objects.requireNonNull(orderAddresses.get(i)).getLat(),
                                     Objects.requireNonNull(orderAddresses.get(i)).getLng())).icon(BitmapDescriptorFactory.fromBitmap(bmp)));
                     markers.add(m);
-
                 }
-                if(markers.size()!=0) moveCamera(googleMap, markers);
-           }
+                if (markers.size() != 0) moveCamera(googleMap, markers);
+            }
         });
     }
 

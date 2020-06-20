@@ -1,11 +1,9 @@
 package com.example.routetitantask.ui.main;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +14,6 @@ import com.example.routetitantask.room.OrderAddress;
 import java.util.List;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderInfoViewHolder> {
-    private OrderItemBinding mOrderItemBinding;
     private List<OrderAddress> orderList;
     private ItemClickListener itemClickListener;
 
@@ -37,7 +34,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderInfoV
     @Override
     public OrderInfoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        mOrderItemBinding = DataBindingUtil.inflate(inflater, R.layout.order_item, parent, false);
+        OrderItemBinding mOrderItemBinding = DataBindingUtil.inflate(inflater, R.layout.order_item, parent, false);
         return new OrderInfoViewHolder(mOrderItemBinding);
     }
 

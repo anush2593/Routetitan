@@ -36,7 +36,7 @@
             android:id="@+id/main_constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{()-> itemClickListener.openExpandable(orderAddress, orderPosition)}"
+            android:onClick="@{()-> itemClickListener.openExpandable(orderAddress)}"
             android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -120,6 +120,7 @@
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{orderAddress.orderDeliveryTime.substring(6)}"
                 android:textColor="@color/green"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +134,8 @@
                 android:layout_marginStart="5dp"
                 android:text="@{orderAddress.orderDeliveryTime}"
                 android:textColor="@color/colorHintGrey"
-                android:textSize="15sp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/order_address_secondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/order_address_secondary"
                 tools:text="08:00-09:00" />
@@ -147,12 +149,12 @@
             android:layout_marginTop="7dp"
             android:paddingEnd="15dp"
             android:paddingRight="15dp"
-            android:visibility="@{orderAddress.isExpanded? View.VISIBLE : View.GONE}"
+            android:visibility="@{orderAddress.expanded? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toBottomOf="@id/main_constraint_layout">
 
             <View
                 android:id="@+id/separator"
-                android:layout_width="300dp"
+                android:layout_width="280dp"
                 android:layout_height="2dp"
                 android:background="@drawable/grey_line"
                 app:layout_constraintEnd_toEndOf="@id/expandable_view"
@@ -167,7 +169,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTint="@color/blue"
                 android:gravity="center_horizontal"
-                android:onClick="@{()->itemClickListener.setOrderFinished(orderAddress, orderPosition)}"
+                android:onClick="@{()->itemClickListener.setOrderFinished(orderAddress)}"
                 android:text="@string/finish"
                 android:textAlignment="center"
                 android:textAllCaps="true"

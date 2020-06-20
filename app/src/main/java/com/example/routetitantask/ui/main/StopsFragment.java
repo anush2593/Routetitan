@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -24,9 +25,7 @@ import java.util.Objects;
 
 public class StopsFragment extends Fragment implements ItemClickListener {
 
-
     private OrderAddressViewModel orderAddressViewModel;
-    private StopsFragmentBinding mStopsFragmentBinding;
 
     public static StopsFragment newInstance() {
         return new StopsFragment();
@@ -42,10 +41,11 @@ public class StopsFragment extends Fragment implements ItemClickListener {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mStopsFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.stops_fragment, container, false);
+        StopsFragmentBinding mStopsFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.stops_fragment, container, false);
         OrdersAdapter orderAdapter = new OrdersAdapter();
         orderAdapter.setItemClickListener(this);
         mStopsFragmentBinding.stopsRecyclerView.setAdapter(orderAdapter);
+        orderAddressViewModel.deleteAll();
         orderAddressViewModel.getAllOrders().observe(getViewLifecycleOwner(), new Observer<List<OrderAddress>>() {
             @Override
             public void onChanged(List<OrderAddress> orderAddresses) {
@@ -70,14 +70,19 @@ public class StopsFragment extends Fragment implements ItemClickListener {
     }
 
     @Override
-    public void setOrderFinished(OrderAddress orderFinished, int position) {
-        orderFinished.setIsFinished(true);
-        orderAddressViewModel.update(orderFinished.getId());
+    public void setOrderFinished(OrderAddress orderFinished) {
+        if (orderFinished.isIsFinished())
+            Toast.makeText(getActivity(), getString(R.string.already_finished), Toast.LENGTH_SHORT).show();
+        else {
+            orderFinished.setIsFinished(true);
+            orderAddressViewModel.update(orderFinished.getId());
+        }
+
     }
 
     @Override
-    public void openExpandable(OrderAddress orderAddress, int position) {
-        if (orderAddress.isIsExpanded()) {
+    public void openExpandable(OrderAddress orderAddress) {
+        if (orderAddress.isExpanded()) {
             orderAddressViewModel.expandView(orderAddress.getId(), false);
         } else {
             orderAddressViewModel.expandView(orderAddress.getId(), true);

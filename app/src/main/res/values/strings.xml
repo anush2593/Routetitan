@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Routetitan</string>
-    <string name="tab_text_1">Stops</string>
+    <string name="tab_text_1">Stops(20)</string>
     <string name="tab_text_2">Map</string>
     <string name="navigate">navigate</string>
     <string name="finish">finish</string>
     <string name="choose_map">Choose Map</string>
+    <string name="already_finished">This order was shipped</string>
 </resources>

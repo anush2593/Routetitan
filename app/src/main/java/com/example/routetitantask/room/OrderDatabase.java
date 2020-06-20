@@ -36,9 +36,6 @@ public abstract class OrderDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    // This callback is called when the database has opened.
-    // In this case, use PopulateDbAsync to populate the database
-    // with the initial data set if the database has no entries.
     private static RoomDatabase.Callback sRoomDatabaseCallback =
             new RoomDatabase.Callback() {
 
@@ -49,8 +46,7 @@ public abstract class OrderDatabase extends RoomDatabase {
                 }
             };
 
-    // Populate the database with the initial data set
-    // only if the database has no entries.
+
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final AddressDao mDao;
@@ -61,11 +57,11 @@ public abstract class OrderDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
             List<String> mainAddressList = new ArrayList<>();
-            for(int i=0;i<20;i++){
-                mainAddressList.add("Random Address" + " " + i);
+            for(int i=1;i<21;i++){
+                mainAddressList.add("Random Address" + " " + i+1);
             }
             List<String> secondaryAddressList = new ArrayList<>();
-            for(int i=0;i<20;i++){
+            for(int i=1;i<21;i++){
                 secondaryAddressList.add("Secondary Address" + " " + i);
                }
             List<String> deliveryTime = Arrays.asList("08:00-09:00", "09:00-10:00", "11:00-12:00",

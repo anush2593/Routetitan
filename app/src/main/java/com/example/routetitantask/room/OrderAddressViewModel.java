@@ -18,8 +18,12 @@ public class OrderAddressViewModel extends AndroidViewModel {
         mAllOrders = mRepository.getAllOrders();
     }
 
-   public LiveData<List<OrderAddress>> getAllOrders() {
+    public LiveData<List<OrderAddress>> getAllOrders() {
         return mAllOrders;
+    }
+
+    public void deleteAll() {
+        mRepository.deleteAll();
     }
 
     public void update(String orderId) {

@@ -3,14 +3,12 @@ package com.example.routetitantask.room;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.UUID;
 
 @Entity(tableName = "address_table")
 public class OrderAddress {
-
 
 
     @NonNull
@@ -60,13 +58,15 @@ public class OrderAddress {
         mIsExpanded = isExpanded;
         id = UUID.randomUUID().toString();
     }
-    public boolean isIsExpanded() {
+
+    public boolean isExpanded() {
         return mIsExpanded;
     }
 
     public void setIsExpanded(boolean mIsExpanded) {
         this.mIsExpanded = mIsExpanded;
     }
+
     public boolean isIsFinished() {
         return mIsFinished;
     }
@@ -133,7 +133,7 @@ public class OrderAddress {
     }
 
 
-   public String getId() {
+    public String getId() {
         return id;
     }
 

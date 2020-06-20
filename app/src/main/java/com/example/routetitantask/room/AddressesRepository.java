@@ -21,6 +21,10 @@ public class AddressesRepository {
         return mAllOrderAddresses;
     }
 
+    public void deleteAll() {
+        new deleteAllDataAsyncTask(mAddressDao).execute();
+    }
+
     public void update(String orderId) {
         new updateOrderStatusInfoAsyncTask(mAddressDao).execute(orderId);
     }
@@ -57,6 +61,21 @@ public class AddressesRepository {
         @Override
         protected Void doInBackground(final String... orderId) {
             mAsyncTaskDao.update(orderId[0], true);
+            return null;
+        }
+    }
+
+    private static class deleteAllDataAsyncTask extends AsyncTask<Void, Void, Void> {
+        private AddressDao mAsyncTaskDao;
+
+        deleteAllDataAsyncTask(AddressDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mAsyncTaskDao.deleteAll();
             return null;
         }
     }
